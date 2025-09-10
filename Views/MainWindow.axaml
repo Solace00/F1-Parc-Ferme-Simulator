@@ -6,36 +6,40 @@
         mc:Ignorable="d"
         x:Class="f1parcfermeoptimizer.Views.MainWindow"
         x:DataType="vm:MainViewModel"
-        Title="F1 Parc Fermé Optimizer" Width="400" Height="500">
+        Title="F1 Parc Fermé Optimizer" Width="400" Height="600">
 
-  <StackPanel Margin="20" Spacing="10">
-    <TextBlock Text="Front Wing Left Angle:" FontWeight="Bold"/>
-    <TextBox Text="{Binding CurrentSetup.FrontWingLeft}" />
+	<StackPanel Margin="20" Spacing="10">
+		<TextBlock Text="Front Wing Left Angle:" FontWeight="Bold"/>
+		<TextBox Text="{Binding CurrentSetup.FrontWingLeft}" />
 
-    <TextBlock Text="Front Wing Right Angle:" FontWeight="Bold"/>
-    <TextBox Text="{Binding CurrentSetup.FrontWingRight}" />
+		<TextBlock Text="Front Wing Right Angle:" FontWeight="Bold"/>
+		<TextBox Text="{Binding CurrentSetup.FrontWingRight}" />
 
-    <TextBlock Text="Rear Wing Angle:" FontWeight="Bold"/>
-    <TextBox Text="{Binding CurrentSetup.RearWing}" />
+		<TextBlock Text="Rear Wing Angle:" FontWeight="Bold"/>
+		<TextBox Text="{Binding CurrentSetup.RearWing}" />
 
-    <TextBlock Text="Track Name:" FontWeight="Bold"/>
-    <TextBox Text="{Binding Parameters.TrackName}" />
+		<TextBlock Text="Track Name:" FontWeight="Bold"/>
+		<TextBox Text="{Binding Parameters.TrackName}" />
 
-    <Button Content="Run Simulation"
-            Command="{Binding RunSimulationCommand}"
-            IsEnabled="{Binding !IsSimulationRunning}"
-            Margin="0,20"/>
+		<Button Content="Run Simulation"
+						Command="{Binding RunSimulationCommand}"
+						IsEnabled="{Binding !IsSimulationRunning}"
+						Margin="0,20"/>
 
-    <ProgressBar IsIndeterminate="True"
-                 IsVisible="{Binding IsSimulationRunning}"
-                 Height="20"/>
+		<ProgressBar IsIndeterminate="True"
+								 IsVisible="{Binding IsSimulationRunning}"
+								 Height="20"/>
 
-    <StackPanel Margin="0,20" IsVisible="{Binding !IsSimulationRunning}">
-      <TextBlock Text="Results:" FontWeight="Bold" FontSize="16"/>
-      <TextBlock Text="Qualifying Lap Time:"/>
-      <TextBlock Text="{Binding Result.QualifyingLapTime, StringFormat='{}{0:N3} seconds'}"/>
-      <TextBlock Text="Race Lap Time:"/>
-      <TextBlock Text="{Binding Result.RaceLapTime, StringFormat='{}{0:N3} seconds'}"/>
-    </StackPanel>
-  </StackPanel>
+		<StackPanel Margin="0,20" IsVisible="{Binding !IsSimulationRunning}">
+			<TextBlock Text="Results:" FontWeight="Bold" FontSize="16"/>
+			<TextBlock Text="Qualifying Lap Time:"/>
+			<TextBlock Text="{Binding Result.QualifyingLapTime, StringFormat='{}{0:N3} seconds'}"/>
+			<TextBlock Text="Race Lap Time:"/>
+			<TextBlock Text="{Binding Result.RaceLapTime, StringFormat='{}{0:N3} seconds'}"/>
+			<TextBlock Text="Tire Degradation:"/>
+			<TextBlock Text="{Binding Result.TireDegradation, StringFormat='{}{0:N2}%'}"/>
+			<TextBlock Text="Energy Usage:"/>
+			<TextBlock Text="{Binding Result.EnergyUsage, StringFormat='{}{0:N2} kWh'}"/>
+		</StackPanel>
+	</StackPanel>
 </Window>

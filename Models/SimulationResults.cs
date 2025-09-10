@@ -7,6 +7,8 @@ namespace f1parcfermeoptimizer.Models
     {
         private double qualifyingLapTime;
         private double raceLapTime;
+        private double tireDegradation;
+        private double energyUsage;
 
         public double QualifyingLapTime
         {
@@ -29,6 +31,32 @@ namespace f1parcfermeoptimizer.Models
                 if (raceLapTime != value)
                 {
                     raceLapTime = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public double TireDegradation
+        {
+            get => tireDegradation;
+            set
+            {
+                if (tireDegradation != value)
+                {
+                    tireDegradation = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public double EnergyUsage
+        {
+            get => energyUsage;
+            set
+            {
+                if (energyUsage != value)
+                {
+                    energyUsage = value;
                     OnPropertyChanged();
                 }
             }

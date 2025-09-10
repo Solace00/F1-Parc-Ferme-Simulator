@@ -3,51 +3,54 @@ using CommunityToolkit.Mvvm.Input;
 using f1parcfermeoptimizer.Models;
 using System;
 using System.Threading.Tasks;
+using f1parcfermeoptimizer.Services;
+using System.Collections.Generic;
 
 namespace f1parcfermeoptimizer.ViewModels
 {
     public partial class MainViewModel : ViewModelBase
     {
+        private readonly TrackRepository _trackRepository;
+        private readonly AdvancedSimulationService _simulationService;
+
         [ObservableProperty]
         private CarSetup _currentSetup;
-
+        
         [ObservableProperty]
         private SimulationParameters _parameters;
-
+        
         [ObservableProperty]
         private SimulationResults _result;
-
-        [ObservableProperty ]
+        
+        [ObservableProperty]
         private bool _isSimulationRunning;
+        
+        [ObservableProperty]
+        private TrackConfiguration _selectedTrack;
+        
+        [ObservableProperty]
+        private List<string> _availableTracks;
 
         public MainViewModel()
         {
+            _trackRepository = new TrackRepository();
+            _simulationService = new AdvancedSimulationService(_trackRepository);
+
             CurrentSetup = new CarSetup();
             Parameters = new SimulationParameters();
             Result = new SimulationResults();
             IsSimulationRunning = false;
 
-            Console.WriteLine("ViewModel created!"); // Debug output
+            AvailableTracks = _trackRepository.GetAvailableTracks();
+            SelectedTrack = _trackRepository.GetTrack("Monza") ?? new TrackConfiguration();
         }
 
         [RelayCommand]
         private async Task RunSimulationAsync()
         {
-            Console.WriteLine("Simulation started!"); // Debug output
             IsSimulationRunning = true;
-
-            // Simulate a delay for the simulation process
-            await Task.Delay(2000); // Simulate a 2-second delay
-
-            // Dummy Calculations for Testing
-            Result.QualifyingLapTime = 80.0 - (CurrentSetup.FrontWingRight + CurrentSetup.FrontWingLeft + CurrentSetup.RearWing) * 0.1;
-
-            Result.RaceLapTime = 82.0 - (CurrentSetup.FrontWingRight + CurrentSetup.FrontWingLeft + CurrentSetup.RearWing) * 0.05 ;
-
+            Result = await _simulationService.SimulateLapAsync(SelectedTrack, CurrentSetup, Parameters);
             IsSimulationRunning = false;
-
-            // Explicitly notify UI that these properties changed
-            OnPropertyChanged(nameof(Result));
         }
     }
 }
