@@ -1,0 +1,26 @@
+{
+  "name": "Monza",
+  "country": "Italy",
+  "totalLength": 5793,      //Length in meters
+  "totalLaps": 53,
+  "segments": [
+    {
+      "type": "Straight",                  //Straight or Corner
+      "length":,                    //Length in meters
+      "drsAvialable":,          //True or False
+      "hasDRSZone":            //True or False
+    },
+    {
+      "type": "Corner",
+      "length":,
+      "cornerType": "",              //Hairpin, Chicane, Curve, etc." Use LowerCase enum Values
+      "radius":,                         //Radius in meters"
+      "angle":,                          //Angle in degrees"
+      "apexSpeed":,                 //Apex speed in km/h"
+      "difficulty": ""              //1-5
+    },
+    {
+
+    }
+  ]
+}
